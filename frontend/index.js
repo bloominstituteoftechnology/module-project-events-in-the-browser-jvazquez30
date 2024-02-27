@@ -42,7 +42,7 @@ function moduleProject2() {
           square.classList.add("targeted")
         }
 
-        
+
       })
     }
   }
@@ -77,6 +77,7 @@ function moduleProject2() {
     let isDown = evt.key === keys.down
     let isLeft = evt.key === keys.left
     let isRight = evt.key === keys.right
+    let spaceBar = evt.key === keys.space
 
     let target = document.querySelector(".targeted")
 
@@ -104,8 +105,28 @@ function moduleProject2() {
       }
     }
     // 👉 TASK 4 - Use the space bar to exterminate a mosquito 👈
+    else if (spaceBar) {
+      let bug = target.firstChild
+      if (bug && bug.dataset.status === "alive") {
+        bug.dataset.status = "dead"
+        bug.parentElement.style.backgroundColor = "red"
+      }
+      // 👉 TASK 5 - End the game 👈
+      let aliveBugs = document.querySelectorAll("[data-status=alive")
+      if (!aliveBugs.length) {
+        console.log("game over")
+        let finalTime = getTimeElapsed()
+        document.querySelector("p.info").textContent = `Extermination completed in ${finalTime / 1000}`
 
-    // 👉 TASK 5 - End the game 👈
+        let restartButton = document.createElement("button")
+        restartButton.textContent = "Restart"
+        restartButton.addEventListener("click", () => {
+          location.reload()
+        })
+        document.querySelector("h2").insertAdjacentElement("beforeend", restartButton)
+        
+      }
+    }
   })
   // 👆 WORK WORK ABOVE THIS LINE 👆
 }
